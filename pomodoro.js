@@ -42,6 +42,9 @@ let Clock = {
 Clock.reset();
 Clock.start();
 
+document.querySelector(".stop__button").addEventListener('click', () => Clock.pause());
+document.querySelector(".resume__button").addEventListener('click', () => Clock.resume());
+
 function displayTimeLeft(seconds){
   const minutes = Math.floor(seconds/60);
   const remainderSeconds = seconds % 60;
