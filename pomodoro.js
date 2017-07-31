@@ -1,33 +1,47 @@
-let countdown;
-
 const timerDisplay = document.querySelector('.display__time-left');
 const endTime = document.querySelector('.display__end-time');
 const buttons = document.querySelectorAll('[data-time]');
 
+let Clock = {
 
- function timer(seconds){
-  //clear existing timer
-  clearInterval(countdown);
+  seconds: 10,
 
-//when the timer starts
-  const now = Date.now();
-  //shows time elapsed since timer started
-  const then = now + seconds * 1000;
-  displayTimeLeft(seconds);
-  // displayEndTime(then);
+  start: function() {
+    let self = this;
 
-    countdown = setInterval(() => {
-    const secondsLeft = Math.round((then - Date.now())/1000);
-    //check if we should stop it
-    if (secondsLeft < 0) {
-      clearInterval(countdown);
-      return;
-    }
-    //display it
-    displayTimeLeft(secondsLeft);
+    this.interval = setInterval(() => {
+      this.seconds = --this.seconds;
+      //check if we should stop it
+      if (this.seconds < 0) {
+        clearInterval(this);
+        return;
+      }
+      //display it
+      displayTimeLeft(this.seconds);
 
-  }, 1000)
+    }, 1000)
+  },
+
+  pause: function() {
+    clearInterval(this.interval);
+    delete this.interval;
+  },
+
+  resume: function() {
+    if (!this.interval) {
+      this.start();
+    };
+
+  },
+  reset: function() {
+    this.pause();
+    displayTimeLeft(this.seconds);
+  }
 }
+
+Clock.reset();
+Clock.start();
+
 
 function displayTimeLeft(seconds){
   const minutes = Math.floor(seconds/60);
@@ -36,13 +50,6 @@ function displayTimeLeft(seconds){
   document.title = display;
   timerDisplay.textContent = display;
 }
-
-// function displayEndTime(timestamp){
-//   const end = new Date(timestamp);
-//   const hour = end.getHours();
-//   const minutes = end.getMinutes();
-//   endTime.textContent = `Break at ${hour}:${minutes <10? "0" : ''}${minutes}`;
-// }
 
 function startTimer() {
   const seconds = parseInt(this.dataset.time);
@@ -56,7 +63,3 @@ document.customForm.addEventListener('submit', function(e) {
   timer(mins * 60);
   this.reset();
 });
-
-function stopTimer(){
-  clearInterval(countdown);
-}
