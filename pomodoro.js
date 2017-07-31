@@ -42,6 +42,7 @@ let Clock = {
 Clock.reset();
 Clock.start();
 
+
 function displayTimeLeft(seconds){
   const minutes = Math.floor(seconds/60);
   const remainderSeconds = seconds % 60;
