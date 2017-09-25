@@ -1,5 +1,5 @@
 # Pomodoro-Clock
-The Pomodoro Technique is a time management method that uses a timer to break down work into intervals, traditionally 25 minutes in length, separated by short breaks. (Adopted from Wikipedia)
+The Pomodoro Technique is a time management method that uses a timer to break down work into intervals, traditionally 25 minutes in length, separated by short breaks. (Adapted from Wikipedia)
 
 I wanted to complete this project using only Vanilla JS.
 
